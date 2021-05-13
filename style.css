@@ -5,9 +5,18 @@
     background-position: 50%;
 }
 
+.spacer{
+    background: #BDF6FF;
+    height:4rem;
+}
+
 .brand-logo{
 
-    height:64px;
+    height:52px;
+}
+
+.front-image{
+    max-width:300px;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -17,9 +26,14 @@
   }
 
 .bg-nav{
-    background: #0202025b
+    background: #abccb25b
+}
+
+.bg-circle {
+    background:#63eaff
 }
 
 #about {
+    padding-top:10rem;
     background: #EFECD9
 }

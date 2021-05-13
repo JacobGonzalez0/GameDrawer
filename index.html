@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css' integrity='sha512-N415hCJJdJx+1UBfULt+i+ihvOn42V/kOjOpp1UTh4CZ70Hx5bDlKryWaqEKfY/8EYOu/C2MuyaluJryK1Lb5Q==' crossorigin='anonymous'/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <nav class="nav navbar navbar-expand-md bg-nav" >
+        <nav class="nav navbar navbar-expand-md bg-nav w-100 position-fixed" >
             <div class="container">
 
                 <div class="w-100 d-flex flex-row justify-content-between">
@@ -24,9 +25,12 @@
                     
 
                     <ul class="navbar-nav d-flex flex-row align-items-center">
-                        <li class="nav-item p-2">
-                            Home
-                        </li>
+                        <a class="nav-link" href="">
+                            <li class="nav-item p-2 fw-bold text-dark">
+                                Home
+                            </li>
+                        </a>
+                        
                     </ul>
 
                 </div>
@@ -37,6 +41,9 @@
 
     <div class="container-fluid p-0">
 
+        <div class="spacer">
+
+        </div>
         <div class="banner w-100">
             <div>
 
@@ -45,12 +52,59 @@
         </div>
 
         <div id="about" class="d-flex flex-column justify-content-center align-items-center">
-            <h2>
+            <h2 class="p-3">
                 About us
             </h2>
-            <div>
-                This is a website
+            <div class="p-3">
+                Game Drawer is a video game catalog website made to organize your collection of games in an easy and graphic way. 
             </div>
+        </div>
+
+        <div id="features">
+
+            <div class="row m-0 p-0 p-md-4">
+
+                <div class="col-12 col-md-6 d-flex align-items-center">
+                    <img class="front-image m-auto p-3" src="https://via.placeholder.com/300x300" alt="">
+                </div>
+                <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+
+                    <div class="project-title display-5 p-4 text-center">
+                        Organize
+                        <div class="underline my-2">
+                        </div>
+
+                        
+                    </div>
+
+                    <p class="p-4">Use our tools to organize your entire collection and keep track of what you own.</p>
+
+                </div>
+
+            </div>
+
+            <div class="row m-0 p-0 p-md-4">
+
+                <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+
+                    <div class="project-title display-5 p-4 text-center">
+                        Find
+                        <div class="underline my-2">
+                        </div>
+
+                        
+                    </div>
+
+                    <p class="p-4">Take a look at what your missing and fill that gap in your collection. See and compare your libary to everything thats out there!</p>
+
+                </div>
+                <div class="col-12 col-md-6 d-flex align-items-center">
+                    <img class="front-image m-auto p-3" src="https://via.placeholder.com/300x300" alt="">
+                </div>
+                
+
+            </div>
+                
 
         </div>
 
