@@ -1,0 +1,25 @@
+.banner{
+    height:500px;
+    background: url("img/background@2x.png");
+    background-size:contain;    
+    background-position: 50%;
+}
+
+.brand-logo{
+
+    height:64px;
+}
+
+@media only screen and (max-width: 1400px) {
+    .banner {
+        background-size:cover;  
+    }
+  }
+
+.bg-nav{
+    background: #0202025b
+}
+
+#about {
+    background: #EFECD9
+}
