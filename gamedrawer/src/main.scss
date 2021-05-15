@@ -1,0 +1,46 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+.banner{
+    height:500px;
+    background: url("/img/background@2x.png");
+    background-size:contain;    
+    background-position: 50%;
+}
+
+.spacer{
+    background: #BDF6FF;
+    height:4rem;
+}
+
+.brand-logo{
+
+    height:52px;
+}
+
+.front-image{
+    max-width:300px;
+}
+
+@media only screen and (max-width: 1400px) {
+    .banner {
+        background-size:cover;  
+    }
+  }
+
+.bg-nav{
+    background: #abccb25b
+}
+
+.bg-circle {
+    background:#63eaff
+}
+
+#about {
+    padding-top:10rem;
+    background: #EFECD9
+}
+
+.gamebox{
+    width:200px
+
+}
