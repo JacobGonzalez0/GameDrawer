@@ -1,24 +1,30 @@
-import './App.css';
+import { Routes, Route, Link} from "react-router-dom";
+import Library from "./pages/Library";
 
 function NavBar(){
   return(
     <header>
-        <nav class="nav navbar navbar-expand-md bg-nav w-100 position-fixed" >
-            <div class="container">
+        <nav className="nav navbar navbar-expand-md bg-nav " >
+            <div className="container">
 
-                <div class="w-100 d-flex flex-row justify-content-between">
+                <div className="w-100 d-flex flex-row justify-content-between">
 
 
-                    <div class="nav-brand">
-                        <img class="brand-logo" src="img/Logo.png" alt=""/>
+                    <div className="nav-brand">
+                        <img className="brand-logo" src="img/Logo.png" alt=""/>
                     </div>
 
-                    <ul class="navbar-nav d-flex flex-row align-items-center">
-                        <a class="nav-link" href="#">
-                            <li class="nav-item p-2 fw-bold text-dark">
+                    <ul className="navbar-nav d-flex flex-row align-items-center">
+                        <Link className="nav-link" to="/">
+                            <li className="nav-item p-2 fw-bold text-dark">
                                 Home
                             </li>
-                        </a>
+                        </Link>
+                        <Link className="nav-link" to="/library">
+                            <li className="nav-item p-2 fw-bold text-dark">
+                                Library
+                            </li>
+                        </Link>
                     </ul>
 
                 </div>
@@ -31,7 +37,7 @@ function NavBar(){
 
 function Banner(){
   return(
-    <div class="banner w-100">
+    <div className="banner w-100">
             <div>
 
             </div>
@@ -40,15 +46,22 @@ function Banner(){
   );
 }
 
+function Home(){
+  return(
+    <div className="container-fluid p-0">
+      <Banner></Banner>
+    </div>
+  );
+}
+
 function App() {
   return (
     <div className="App">
       <NavBar></NavBar>
-      <div class="container-fluid p-0">
-        <div class="spacer">
-        </div>
-        <Banner></Banner>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/library" element={<Library />} />
+      </Routes>
     </div>
   );
 }
