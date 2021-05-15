@@ -21,11 +21,16 @@ class GameBoxGenerator extends React.Component {
 
     componentDidUpdate() {
 
-
-        
     }
 
-    search(){
+    search(e){
+
+        if(e.keyCode != undefined){
+            if(e.keyCode !== 13){
+                return
+            }
+        }
+
         let search = document.getElementById("search").value;
 
         let fields =  "fields name,artworks,cover,release_dates,genres.name,rating;";
@@ -90,9 +95,9 @@ class GameBoxGenerator extends React.Component {
 
         return (
             <div>
-                <div className="col-6 d-flex">
-                    <input className="form-control m-2" type="text" id="search" placeholder="Search Game"/>
-                    <button className="btn btn-primary m-2" onClick={() => this.search()}>
+                <div className="col-12 col-md-6 d-flex">
+                    <input className="form-control m-2" type="text" id="search" placeholder="Search Game" onKeyUp={(e) => this.search(e)}/>
+                    <button className="btn btn-primary m-2" onClick={(e) => this.search(e)}>
                         Search
                     </button>
                 </div>
@@ -124,8 +129,10 @@ class Library extends React.Component {
     render() {
       return (
         <div>
-            test
-            <GameBoxGenerator></GameBoxGenerator>
+            <div className="row">
+                <GameBoxGenerator></GameBoxGenerator>
+            </div>
+            
         </div>
         );
     }
