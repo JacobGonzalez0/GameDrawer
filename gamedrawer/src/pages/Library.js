@@ -1,119 +1,134 @@
-import { useEffect, useState } from "react";
-import rawg from "../keys";
+import React from "react";
+import idgb from "../keys";
 
-function GameList(props){
-    const [data, setData] = useState(null);
-    const [gameSearch, setGameSearch] = useState("GTA");
 
-    //query new data when gameSearch state is updated
-    useEffect(()=>{
 
-        let query = new URLSearchParams({
-            search: gameSearch,
-            key: rawg
-        })
-
-        fetch(`https://api.rawg.io/api/games?` + query).then(res =>{
-            res.json().then( data =>{
-                console.log(data.results)
-                setData(data.results)
-            })
-        })
-        
-    }, [gameSearch])
-
-    function search() {
-        let search = document.getElementById("search").value;
-        console.log(search);
-        setGameSearch(search);
+class GameBoxGenerator extends React.Component {
+ 
+    constructor(props){
+        super(props);
+        this.state = {
+            data: []
+        };
     }
 
-    if(data){
+    componentDidMount() {
+        fetch(`https://id.twitch.tv/oauth2/token?client_id=${idgb.igdbClientID}&client_secret=${idgb.igdbSecret}&grant_type=client_credentials`, {method: 'POST'})
+        .then(res =>{ res.json().then( data =>{
+            localStorage.setItem("auth", "Bearer " + data.access_token)
+        })})
+    }
 
-        let games = data.map( (game, i) => ({id: i, data: game}))
+    componentDidUpdate() {
+
+
+        
+    }
+
+    search(){
+        let search = document.getElementById("search").value;
+
+        let fields =  "fields name,artworks,cover,release_dates,genres.name,rating;";
+
+        let options = {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': localStorage.getItem("auth"), 
+                'Content-Type': '*/*',
+                'Client-ID': idgb.igdbClientID
+            }), 
+            
+            body: 'search "' + search + '"; ' + fields
+        }
+
+
+        fetch(`${idgb.url}/games/`, options)
+        .then(res =>{ res.json().then( data =>{
+
+            let fields =  "fields image_id;";
+
+            data.forEach( (game, i) =>{
+
+                //grabs the cover art for each game checking if it exists
+                if(game.cover){
+                    let obj = {
+                        method: 'POST',
+                        headers: new Headers({
+                            'Authorization': localStorage.getItem("auth"), 
+                            'Content-Type': '*/*',
+                            'Client-ID': idgb.igdbClientID
+                        }), 
+                        body: "where id = " + game.cover + "; " + fields
+                    }
+    
+                    fetch(`${idgb.url}/covers/`, obj).then(res =>{
+                       res.json().then( coverArt =>{
+                           //and adds it to data
+                            let stateData = this.state.data;
+                            stateData[i].cover = "https://images.igdb.com/igdb/image/upload/t_cover_big/" + coverArt[0].image_id + ".jpg";
+                            this.setState({data: stateData})
+                       })
+                    })
+                }else{
+                    let stateData = this.state.data;
+                    //set placeholder
+                    game.cover = "#"
+                    this.setState({data: stateData})
+                }
+               
+
+            })
+
+            
+    
+            this.setState({data : data})
+        })})
+    }
+    
+
+    render() {
 
         return (
             <div>
-                <button onClick={search}>Search</button>
-                <GameBox games={games}></GameBox>
+                <div className="col-6 d-flex">
+                    <input className="form-control m-2" type="text" id="search" placeholder="Search Game"/>
+                    <button className="btn btn-primary m-2" onClick={() => this.search()}>
+                        Search
+                    </button>
+                </div>
+                
+                <div className="d-flex flex-wrap justify-content-center">
+                    {this.state.data.map( (game) =>
+                        <div key={game.id} className="gamebox m-2 border rounded">
+
+                            <img className="w-100" src={game.cover} alt="" />
+
+                            <h2>
+                                {game.name}
+                            </h2>
+
+                        </div>
+                    )}
+                </div>
+                
             </div>
+
         )
     }
+}
 
-    return (
+
+class Library extends React.Component {
+ 
+
+    render() {
+      return (
         <div>
-            <button onClick={search}>Search</button>
-            Loading...
+            test
+            <GameBoxGenerator></GameBoxGenerator>
         </div>
-    )
-}
-
-function GameBox(props){
-
-
-    return(
-        <div className="d-flex flex-wrap justify-content-center align-items-center">
-            {props.games.map((game, i) =>
-                <div key={game.id} className="rounded border gamebox m-3" >
-
-                    <img src={game.data.background_image} className="w-100"  alt=""/>
-                    <div className="d-flex flex-row p-2">
-                        <h5 className="text-capitalize">
-                            {game.data.name}
-                        </h5>
-
-                        <PlatformIcon platforms={game.data.platforms}/>            
-
-
-                    </div>
-                    
-                </div>
-            )}
-        </div>
-    );
-}
-
-function PlatformIcon({platforms}){
-    return(
-
-            <div className="col-12 d-flex flex-">
-                {platforms.map( (platform, i) =>{
-                    let obj = platform.platform
-                        switch(obj.id){
-                            
-                            case 4: 
-                            
-                                return(
-                                    <div>
-                                        PC
-                                    </div>
-                                )
-                            break;
-                            default:
-                                console.log(obj.id)
-                                return(
-                                    <div>
-                                        A
-                                    </div>
-                                )
-                            break;
-                        }
-                    }
-                )}
-            </div>
-
-    )
-}
-
-function Library(){
-    
-
-    return(
-        <div>
-            <input id="search" type="text" placeholder="Search Game"></input>
-            <GameList></GameList>
-        </div>
-    )
+        );
+    }
 }
 
 export default Library;
