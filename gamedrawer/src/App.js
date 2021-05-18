@@ -1,4 +1,5 @@
 import { Routes, Route, Link} from "react-router-dom";
+import React from "react";
 import Library from "./pages/Library";
 
 function NavBar(){
@@ -54,16 +55,25 @@ function Home(){
   );
 }
 
-function App() {
-  return (
-    <div className="App">
-      <NavBar></NavBar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/library" element={<Library />} />
-      </Routes>
-    </div>
-  );
-}
+class App extends React.Component {
 
+  constructor(props){
+      super(props);
+      this.state = {
+        myGames : []
+      };
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <NavBar></NavBar>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/library" element={<Library />} />
+        </Routes>
+      </div>
+    );
+  }
+}
 export default App;
